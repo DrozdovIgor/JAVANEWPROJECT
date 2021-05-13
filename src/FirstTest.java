@@ -207,8 +207,7 @@ public class FirstTest {
     {
         WebElement element = waitForElementPresent(by, error_message, 5);
         String znachenie_elementa = element.getAttribute("text");
-        ExpectedConditions
-        return element
+        return element;
 
     }
 }
