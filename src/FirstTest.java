@@ -10,8 +10,12 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.net.URL;
+import java.util.Arrays;
 
+import static org.hamcrest.core.Every.everyItem;
+import static org.hamcrest.core.StringContains.containsString;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
 
 public class FirstTest {
     private AppiumDriver driver;
@@ -192,9 +196,44 @@ public class FirstTest {
                  "Result of search is still present on the page",
                  5
          );
+     }
+
+@Test
+        public void EX4() {
+        waitForElementAndClick(
+            By.xpath("//*[contains (@text, 'Search Wikipedia')]"),
+            "Cannot find search wikipedia input ",
+            5
+        );
+
+        waitForElementAndSendKeys(
+            By.xpath("//*[contains (@text, 'Search…')]"),
+            "Java",
+            "Cannot find search input",
+            5
+        );
+
+           assertElementHasChastichniiText (
+            By.xpath("//*[@resource-id='org.wikipedia:id/page_list_item_container']//*[@text='Java']"),
+                    "Java",
+                    "Ne sopvalo"
+
+        );
+
+            assertElementHasChastichniiText (
+            By.xpath("//*[@resource-id='org.wikipedia:id/page_list_item_container']//*[@text='JavaScript']"),
+                    "Java",
+                    "Ne sopvalo"
+            );
+
+            assertElementHasChastichniiText (
+            By.xpath("//*[@resource-id='org.wikipedia:id/page_list_item_container']//*[@text='Java (programming language)']"),
+                    "Java",
+                    "Ne sopvalo"
+            );
+         }
 
 
-}
 
 
     private WebElement waitForElementPresent(By by, String error_message, long timeoutInSeconds) { //ожидание элемента
@@ -246,6 +285,16 @@ public class FirstTest {
         assertEquals(error_message, znachenie_elementa, expected_value);
         //boolean equals = expected_value.equals(znachenie_elementa);
         //assertTrue(error_message, equals);
+        return element;
+    }
+
+
+
+    private WebElement assertElementHasChastichniiText (By by, String Chast_texta, String error_message)
+    {
+        WebElement element = waitForElementPresent(by, error_message, 5);
+        String znachenie_elementa = element.getAttribute("text");
+        assertThat(Arrays.asList(znachenie_elementa), everyItem(containsString(Chast_texta)));
         return element;
     }
 }
