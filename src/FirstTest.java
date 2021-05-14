@@ -1,7 +1,6 @@
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
@@ -11,6 +10,8 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.net.URL;
+
+import static org.junit.Assert.assertEquals;
 
 public class FirstTest {
     private AppiumDriver driver;
@@ -124,7 +125,7 @@ public class FirstTest {
                 15
         );
         String article_title = title_element.getAttribute("text"); // получение текста из элемента
-        Assert.assertEquals(
+        assertEquals(
                 "We see unexpected title",
                 "Java (programming language)",
                 article_title
@@ -142,16 +143,10 @@ public class FirstTest {
             5
     );
 
-    waitForElementAndSendKeys(
-            By.xpath("//*[contains (@text, 'Search…')]"),
-            "Java",
-            "Cannot find X to cancel search",
-            5
-    );
      assertElementHasText (
             By.xpath("//*[contains (@text, 'Search…')]"),
-            "Search",
-            "непоняв"
+            "Search…",
+            "Мой первый ассерт выскочил"
 
     );
 
@@ -207,8 +202,10 @@ public class FirstTest {
     {
         WebElement element = waitForElementPresent(by, error_message, 5);
         String znachenie_elementa = element.getAttribute("text");
+        assertEquals(error_message, znachenie_elementa, expected_value);
+        //boolean equals = expected_value.equals(znachenie_elementa);
+        //assertTrue(error_message, equals);
         return element;
-
     }
 }
 
