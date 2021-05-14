@@ -150,10 +150,51 @@ public class FirstTest {
 
     );
 
-
 }
 
+     @Test
+       public void EX3() {
 
+         waitForElementAndClick(
+                 By.xpath("//*[contains (@text, 'Search Wikipedia')]"),
+                 "Cannot find search wikipedia input ",
+                 5
+         );
+
+         waitForElementAndSendKeys(
+                 By.xpath("//*[contains (@text, 'Search…')]"),
+                 "Java",
+                 "Cannot find search input",
+                 5
+         );
+
+         waitForElementPresent( //ожидание элемента
+                 By.xpath("//*[@resource-id='org.wikipedia:id/page_list_item_container']//*[@text='Object-oriented programming language']"),
+                 "Cannot find Object-oriented programming language by Java",
+                 15
+         );
+
+         waitForElementPresent( //ожидание элемента
+                 By.xpath("//*[@resource-id='org.wikipedia:id/page_list_item_container']//*[@text='Programming language']"),
+                 "Cannot find Object-oriented programming language by Java",
+                 15
+         );
+
+         waitForElementAndClear( // очистка поля
+                 By.id("org.wikipedia:id/search_src_text"),
+                 "Cannot find search field",
+                 5
+
+         );
+
+         waitForElementNotPresent( // отсутствие элемента
+                 By.xpath("//*[@resource-id='org.wikipedia:id/page_list_item_container']//*[@text='Programming language']"),
+                 "Result of search is still present on the page",
+                 5
+         );
+
+
+}
 
 
     private WebElement waitForElementPresent(By by, String error_message, long timeoutInSeconds) { //ожидание элемента
