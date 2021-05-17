@@ -19,8 +19,7 @@ import java.util.List;
 
 import static org.hamcrest.core.Every.everyItem;
 import static org.hamcrest.core.StringContains.containsString;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.*;
 
 public class FirstTest {
     private AppiumDriver driver;
@@ -748,6 +747,41 @@ public class FirstTest {
 
     }
 
+@Test
+    public void chekTitleWithoutWait () {
+
+
+    waitForElementAndClick(
+            By.xpath("//*[contains (@text, 'Search Wikipedia')]"),
+            "Cannot find search wikipedia input ",
+            5
+    );
+
+    waitForElementAndSendKeys(
+            By.xpath("//*[contains (@text, 'Search…')]"),
+            "Java",
+            "Cannot find search input",
+            5
+    );
+
+    waitForElementPresent(
+            By.xpath("//*[@resource-id='org.wikipedia:id/page_list_item_container']//*[@text='Object-oriented programming language']"),
+            "Cannot find search wikipedia input"
+    );
+
+    waitForElementAndClick(
+            By.xpath("//*[@resource-id='org.wikipedia:id/page_list_item_container']//*[@text='Object-oriented programming language']"),
+            "Cannot find search wikipedia input ",
+            15
+    );
+
+        assertElementPresent (
+                By.id("org.wikipedia:id/view_page_title_text"),
+                "Element not found"
+        );
+
+    }
+
 
 
 
@@ -885,6 +919,18 @@ public class FirstTest {
         WebElement element = waitForElementPresent(by, error_message, timeoutInSeconds);
         return element.getAttribute(attribute);
     }
+
+    private void assertElementPresent (By by, String error_message)
+    {
+        if (driver.findElements(by).size()==0) {
+            throw new AssertionError(error_message);
+        }
+        else
+        {WebElement element= driver.findElement(by);}
+
+
+    }
+
 
 
 }
