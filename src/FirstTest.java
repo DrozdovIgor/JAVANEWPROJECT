@@ -5,10 +5,7 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Dimension;
-import org.openqa.selenium.ScreenOrientation;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -782,6 +779,23 @@ public class FirstTest {
 
     }
 
+    @Test public void ProveryaemRotaciu ()
+    {
+
+       checkRotationBeforeTest(
+                ScreenOrientation.PORTRAIT,
+                "Orientation was not changed"
+        );
+
+        driver.rotate(ScreenOrientation.LANDSCAPE);
+
+        waitForElementAndClick( //поиск первой статьи
+                By.xpath("//*[contains (@text, 'Search Wikipedia')]"),
+                "Cannot find search wikipedia input ",
+                5
+        );
+    }
+
 
 
 
@@ -928,8 +942,19 @@ public class FirstTest {
         else
         {WebElement element= driver.findElement(by);}
 
+    }
+
+    private void checkRotationBeforeTest (ScreenOrientation orientation, String error_message)
+    {
+        ScreenOrientation current_orientation = driver.getOrientation();
+        if ((orientation.equals(current_orientation))==false) {
+            driver.rotate(ScreenOrientation.PORTRAIT);
+        };
+
 
     }
+
+
 
 
 
