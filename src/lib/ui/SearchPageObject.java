@@ -1,7 +1,6 @@
 package lib.ui;
 
 import io.appium.java_client.AppiumDriver;
-import org.junit.Assert;
 import org.openqa.selenium.By;
 
 public class SearchPageObject extends MainPageObject
@@ -18,9 +17,7 @@ public class SearchPageObject extends MainPageObject
     SEARCH_TITLE_RESULT1 = "//*[@resource-id='org.wikipedia:id/page_list_item_container']//*[@text='Java']",
     SEARCH_TITLE_RESULT2 = "//*[@resource-id='org.wikipedia:id/page_list_item_container']//*[@text='Java (programming language)']",
     SEARCH_TITLE_RESULT3 = "//*[@resource-id='org.wikipedia:id/page_list_item_container']//*[@text='JavaScript']",
-    SEARCH_RESULT_BY_TITLE_OR_DESCRIPTION_TPL = "//*[@resource-id='org.wikipedia:id/page_list_item_title'] [@text='{SUBSTRING_TITLE}'] | ..//*[@resource-id='org.wikipedia:id/page_list_item_description'][@text='{SUBSTRING_DESCRIPTION}']";
-
-    //*[@resource-id='org.wikipedia:id/page_list_item_title'] [@text='Java'] |  ..//*[@resource-id='org.wikipedia:id/page_list_item_description'][@text='Island of Indonesia']
+    SEARCH_RESULT_BY_TITLE_OR_DESCRIPTION_TPL = "//*[@resource-id='org.wikipedia:id/page_list_item_container']//*[@text='{TITLE}']/../*[@text='{DESCRIPTION}']";
 
 
     public SearchPageObject (AppiumDriver driver)
@@ -37,13 +34,8 @@ public class SearchPageObject extends MainPageObject
 
     private static String getResultSearchTitleAndDescription (String substring_title, String substring_description)
     {
-        SEARCH_RESULT_BY_TITLE_OR_DESCRIPTION_TPL.replace("{SUBSTRING_TITLE}", substring_title);
-        SEARCH_RESULT_BY_TITLE_OR_DESCRIPTION_TPL.replace("{SUBSTRING_DESCRIPTION}", substring_description);
-
-        return SEARCH_RESULT_BY_TITLE_OR_DESCRIPTION_TPL;
-
+        return  SEARCH_RESULT_BY_TITLE_OR_DESCRIPTION_TPL.replace("{TITLE}", substring_title).replace("{DESCRIPTION}", substring_description);
     }
-
 
 
     /* TEMPLATES METHODS */
@@ -139,14 +131,12 @@ public class SearchPageObject extends MainPageObject
 
     public void waitForElementByTitleAndDescription (String title, String description)
     {
-        String search_result_xpath_title = getResultSearchTitleAndDescription(title,description);
+        String search_result_xpath_title_and_description = getResultSearchTitleAndDescription(title,description);
         this.waitForElementPresent(
-                By.xpath(search_result_xpath_title),
-                "Cannot find title with substring title " + title + " and substring description " + description,
+                By.xpath(search_result_xpath_title_and_description),
+                "Cannot element with substring title " + title + " and substring description " + description,
                 5
         );
-        int size_elements = this.getAmountofElements(By.xpath(search_result_xpath_title));
-        Assert.assertTrue("Elements less that 3", size_elements > 2 );
 
     }
 

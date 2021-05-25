@@ -95,7 +95,11 @@ public class SearchTests extends CoreTestCase
                 "Results of search less than 3",
                 amount_of_search_results > 2
         );
-        SearchPageObject.waitForElementByTitleAndDescription("Java", "Java");
+        SearchPageObject.waitForElementByTitleAndDescription("Java", "Island of Indonesia");
+        SearchPageObject.waitForElementByTitleAndDescription("JavaScript", "Programming language");
+        SearchPageObject.waitForElementByTitleAndDescription("Java (programming language)", "Object-oriented programming language");
+
+
 
 
     }
