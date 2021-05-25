@@ -76,11 +76,28 @@ public class SearchTests extends CoreTestCase
     }
 
     @Test
-    public void testEX4CheckWorldsInTitles() {
+    public void testEX4CheckWorldsInTitles()
+    {
         SearchPageObject SearchPageObject = new SearchPageObject(driver);
         SearchPageObject.initSearchInput();
         SearchPageObject.typeSearchLine("Java");
         SearchPageObject.checkMultipleTitleForText("Java");
+    }
+
+    @Test
+    public void testEX9RefactoringTPL ()
+    {
+        SearchPageObject SearchPageObject = new SearchPageObject(driver);
+        SearchPageObject.initSearchInput();
+        SearchPageObject.typeSearchLine("Java");
+        int amount_of_search_results = SearchPageObject.getAmountOfFoundArticles();
+        assertTrue(
+                "Results of search less than 3",
+                amount_of_search_results > 2
+        );
+        SearchPageObject.waitForElementByTitleAndDescription("Java", "Java");
+
+
     }
 
 }
