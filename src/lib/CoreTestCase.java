@@ -7,6 +7,7 @@ import org.openqa.selenium.ScreenOrientation;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.net.URL;
+import java.time.Duration;
 
 public class CoreTestCase extends TestCase
 {
@@ -45,7 +46,8 @@ public class CoreTestCase extends TestCase
 
     protected void backgroundApp (int seconds)
     {
-        driver.runAppInBackground(seconds);
+        //driver.runAppInBackground(seconds);
+        driver.runAppInBackground(Duration.ofSeconds(seconds));
     }
 
     private DesiredCapabilities getCapabilitiesByPlatformEnv () throws Exception
@@ -58,12 +60,15 @@ public class CoreTestCase extends TestCase
         if (platform.equals(PLATFORM_ANDROID)) {
             capabilities.setCapability("platformName", "Android");
             capabilities.setCapability("deviceName", "Google Nexus");
-            capabilities.setCapability("platformVersion", "9");
+            capabilities.setCapability("platformVersion", "10");
             capabilities.setCapability("automationName", "Appium");
             capabilities.setCapability("appPackage", "org.wikipedia");
             capabilities.setCapability("appActivity", ".main.MainActivity");
             capabilities.setCapability("app", "C:\\Users\\Test\\Desktop\\JavaAppiumAutomationNew\\apks\\org.wikipedia.apk");
             capabilities.setCapability("orientation", "PORTRAIT");
+            capabilities.setCapability("udid", "399edef4");
+            //capabilities.setCapability("unlockType", "pin");
+            //capabilities.setCapability("unlockKey", "1212");
 
         } else if (platform.equals(PLATFORM_IOS)) {
             capabilities.setCapability("platformName", "iOs");
