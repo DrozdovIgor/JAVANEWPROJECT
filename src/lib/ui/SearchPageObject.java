@@ -2,21 +2,20 @@ package lib.ui;
 
 import io.appium.java_client.AppiumDriver;
 
-public class SearchPageObject extends MainPageObject
+public abstract class SearchPageObject extends MainPageObject
 {
-
-    private static final String
-    SEARCH_INIT_ELEMENT = "xpath://*[contains (@text, 'Search Wikipedia')]",
-    SEARCH_INPUT = "xpath://*[contains (@text, 'Search…')]",
-    SEARCH_CANCEL_BUTTON = "id:org.wikipedia:id/search_close_btn",
-    SEARCH_RESULT_BY_SUBSTRING_TPL = "xpath://*[@resource-id='org.wikipedia:id/page_list_item_container']//*[@text='{SUBSTRING}']",
-    SEARCH_RESULT_ELEMENT = "xpath://*[@resource-id='org.wikipedia:id/search_results_list']/*[@resource-id='org.wikipedia:id/page_list_item_container']",
-    SEARCH_EMPTY_RESULT_ELEMENT = "xpath://*[@text='No results found']",
-    SEARCH_INPUT_BOX = "id:org.wikipedia:id/search_src_text",
-    SEARCH_TITLE_RESULT1 = "xpath://*[@resource-id='org.wikipedia:id/page_list_item_container']//*[@text='Java']",
-    SEARCH_TITLE_RESULT2 = "xpath://*[@resource-id='org.wikipedia:id/page_list_item_container']//*[@text='Java (programming language)']",
-    SEARCH_TITLE_RESULT3 = "xpath://*[@resource-id='org.wikipedia:id/page_list_item_container']//*[@text='JavaScript']",
-    SEARCH_RESULT_BY_TITLE_OR_DESCRIPTION_TPL = "xpath://*[@resource-id='org.wikipedia:id/page_list_item_container']//*[@text='{TITLE}']/../*[@text='{DESCRIPTION}']";
+    protected static String
+            SEARCH_INIT_ELEMENT,
+            SEARCH_INPUT,
+            SEARCH_CANCEL_BUTTON,
+            SEARCH_RESULT_BY_SUBSTRING_TPL,
+            SEARCH_RESULT_ELEMENT,
+            SEARCH_EMPTY_RESULT_ELEMENT,
+            SEARCH_INPUT_BOX,
+            SEARCH_TITLE_RESULT1,
+            SEARCH_TITLE_RESULT2,
+            SEARCH_TITLE_RESULT3,
+            SEARCH_RESULT_BY_TITLE_OR_DESCRIPTION_TPL;
 
 
     public SearchPageObject (AppiumDriver driver)
